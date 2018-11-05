@@ -3,10 +3,10 @@ package trabalho.exercicio5;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,25 +16,25 @@ public class Metodos extends JFrame implements ActionListener {
         
       JPanel pan;
       JButton btn;
-      Component[] btns;
+      String[] con = new String[2];
+      private final HashMap<Integer, String> hmap = new HashMap<>();
       
-      
-      final String IMAGENS[] = {             
-              "./assets/fig_1.png",
-              "./assets/fig_2.png",
-              "./assets/fig_3.png",
-              "./assets/fig_4.png",
-              "./assets/fig_5.png",
-              "./assets/fig_6.png",
-              "./assets/fig_7.png",
-              "./assets/fig_8.png",
-              "./assets/fig_9.png",
-              "./assets/fig_10.png",
-              "./assets/fig_11.png",
-              "./assets/fig_12.png",
-              "./assets/fig_13.png",
-              "./assets/fig_14.png",
-              "./assets/fig_15.png"
+      {             
+        hmap.put(1,"./assets/fig_1.png");
+        hmap.put(2,"./assets/fig_2.png");
+        hmap.put(3,"./assets/fig_3.png");
+        hmap.put(4,"./assets/fig_4.png");
+        hmap.put(5,"./assets/fig_5.png");
+        hmap.put(6,"./assets/fig_6.png");
+        hmap.put(7,"./assets/fig_7.png");
+        hmap.put(8,"./assets/fig_8.png");
+        hmap.put(9,"./assets/fig_9.png");
+        hmap.put(10,"./assets/fig_10.png");
+        hmap.put(11,"./assets/fig_11.png");
+        hmap.put(12,"./assets/fig_12.png");
+        hmap.put(13,"./assets/fig_13.png");
+        hmap.put(14,"./assets/fig_14.png");
+        hmap.put(15,"./assets/fig_15.png");
       };
       
       
@@ -65,7 +65,7 @@ public class Metodos extends JFrame implements ActionListener {
     }
       
       private void inicializar() {
-        pan = new JPanel(new GridLayout(6,6));
+        pan = new JPanel(new GridLayout(5,5));
         for(int i=0;i<36;i++){
             btn = new JButton(new ImageIcon("./assets/duvida.png"));
             btn.addActionListener(this);
@@ -73,19 +73,24 @@ public class Metodos extends JFrame implements ActionListener {
         }
         add(pan); 
     }
+      
 
     @Override
     public void actionPerformed(ActionEvent e) {
     
       Random rand = new Random();
-      int j = rand.nextInt(IMAGENS.length);
-      
       JButton Jbtn = ((JButton)e.getSource());
       
-       if(String.valueOf(Jbtn.getIcon()) == "./assets/duvida.png"){
-          Jbtn.setIcon(new ImageIcon(IMAGENS[j])); 
+      int j = rand.nextInt(hmap.size());
+      
+       if("./assets/duvida.png".equals(String.valueOf(Jbtn.getIcon()))){
+          
+           Jbtn.setIcon(new ImageIcon(hmap.get(j)));
+           
        }
-        
-    }
+       
+       
+      }
+          
 
 }

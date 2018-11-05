@@ -19,9 +19,6 @@ public class JogodaMemoria {
        app.setVisible(true);
        app.setTitle(app.TITULO);
     }
-    
-    public static void main(String[] args) {
-        JogodaMemoria men = new JogodaMemoria();
-    }
+   
     
 }
