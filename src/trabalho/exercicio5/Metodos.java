@@ -65,7 +65,7 @@ public class Metodos extends JFrame implements ActionListener {
     }
       
       private void inicializar() {
-        pan = new JPanel(new GridLayout(5,5));
+        pan = new JPanel(new GridLayout(6,6));
         for(int i=0;i<36;i++){
             btn = new JButton(new ImageIcon("./assets/duvida.png"));
             btn.addActionListener(this);
