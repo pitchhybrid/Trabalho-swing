@@ -17,7 +17,6 @@ public class Exercicio3 {
     public Exercicio3() {
         CacaNiquel app = new CacaNiquel();
         app.setVisible(true);
-        app.setTitle(app.TITULO);
     }
     
 }

@@ -4,11 +4,11 @@ package trabalho.exercicio3;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.Timer;
 
 
 
@@ -19,6 +19,10 @@ import javax.swing.Timer;
 public class CacaNiquel extends JFrame implements ActionListener{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4914288844621649748L;
+	/**
      *
      */
     public  String TITULO = "Caça Niquel";;

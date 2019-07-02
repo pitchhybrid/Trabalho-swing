@@ -14,8 +14,10 @@ public class Exercicio4 {
     public Exercicio4() {
             JogoDaVelha app = new JogoDaVelha();
             app.setVisible(true);
-            app.setTitle(app.TITULO);
     }
     
+    public static void main(String[] args) {
+		new Exercicio4();
+	}
     
 }

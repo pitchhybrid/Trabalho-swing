@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,53 +19,70 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author aluno
+ * @author alone
  */
 public class JogoDaVelha extends JFrame implements ActionListener{
     
-    public final String TITULO = "Jogo da Velha";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7605733334430865031L;
+	private final String TITULO = "Jogo da Velha";
     private final int LARGURA = 600;
     private final int ALTURA = 600;
     private String jogador = "X"; 
-    JPanel pan;
-    JButton btn;
-    Component[] btns;
+    private JPanel pan;
+    private JButton btn;
+    private Component[] btns;
     
     public JogoDaVelha() {
-        configurar();
-        
-        int op = JOptionPane.showConfirmDialog(pan, "Deseja Iniciar?");
-        if(op == 0){
-        inicializar();
-        }else{
-            System.exit(0);
-        }  
+       configurar();
+       dialog("Deseja Iniciar?");
     }
     
+    public void dialog(String str){
+    	int op = JOptionPane.showConfirmDialog(this, str);
+		   if(op == 0){
+			   inicializar();
+		   }else{
+			   System.exit(0);
+		   }
+    }
     private void configurar() {
         setTitle(this.TITULO);
         setSize(this.LARGURA, this.ALTURA);
         setResizable(false);
         setLocationRelativeTo(null);
-        setVisible(true);        
+        setVisible(true); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
        JButton Jbtn = ((JButton)ae.getSource());
        if(Jbtn.getText().isEmpty()){
-       Jbtn.setText(trocarJogador());
-       verificarVitoria();
-       Jbtn.setFont(new Font("Courier New", Font.BOLD, 128));
+    	   Jbtn.setText(trocarJogador());
+    	   if(verificarVitoria()){
+    		   JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
+    		   dialog("Deseja reiniciar");
+    		   getContentPane().removeAll();
+    	   }else{ 
+    		   if(verificarVelha()){
+    			   JOptionPane.showMessageDialog(this, String.format("Deu velha", jogador));
+    			   dialog("Deseja reiniciar");
+    			   getContentPane().removeAll();
+    		   }
+    	   }
+    	   
+    	   Jbtn.setFont(new Font("Courier New", Font.BOLD, 128));
+    	   
        }
-       if(verificarVelha()){
-            JOptionPane.showMessageDialog(this, "Deu velha");
-       }
+       
         
     }
 
     private void inicializar() {
-        pan = new JPanel();
+    	pan = new JPanel();
         pan.setLayout(new GridLayout(3,3));
         for(int i=0;i<9;i++){
             btn = new JButton();
@@ -78,35 +96,17 @@ public class JogoDaVelha extends JFrame implements ActionListener{
     //012
     //345
     //678
-    public void verificarVitoria(){
+    public boolean verificarVitoria(){
         //horizontal
-        if(verificarIguais(0, 1, 2)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-        
-         }
-        if(verificarIguais(3, 4, 5)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
-        if(verificarIguais(6, 7, 8)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
+        if(verificarIguais(0, 1, 2) || verificarIguais(3, 4, 5) || verificarIguais(6, 7, 8))
+        	return true;
         //vertical
-        if(verificarIguais(0, 3, 6)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
-        if(verificarIguais(1, 4, 7)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
-        if(verificarIguais(2, 5, 8)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
+        if(verificarIguais(0, 3, 6) || verificarIguais(1, 4, 7) || verificarIguais(2, 5, 8))
+        	return true;
         //diagonal
-        if(verificarIguais(0, 4, 8)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
-        if(verificarIguais(2, 4, 6)){
-        JOptionPane.showMessageDialog(this, String.format("Jogador %s ganhou", jogador));
-         }
+        if(verificarIguais(0, 4, 8) || verificarIguais(2, 4, 6))
+        	return true; 
+        return false;
        
     }
     
@@ -130,9 +130,10 @@ public class JogoDaVelha extends JFrame implements ActionListener{
         }
         return isVelha;
     }
+    
     public String trocarJogador(){
         if("X".equals(jogador)){
-           jogador = "O";
+            jogador = "O";
         }else{
             jogador = "X";
         }
